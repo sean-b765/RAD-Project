@@ -1,0 +1,170 @@
+/*
+    https://www.w3schools.com/css/css_rwd_mediaqueries.asp
+*/
+
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
+
+* {
+    padding: 0;
+    margin: 0;
+    font-family: 'Open Sans', sans-serif;
+}
+
+/*
+    Nav Menu
+*/
+#nav {
+    position: fixed;
+    font-size: 1.5vw;
+    top: 0px;
+    list-style: none;
+    background: rgba(228, 228, 228, 0.911);
+    padding: 5px;
+    border-bottom-right-radius: 10px;
+    z-index: 999;
+}
+
+#nav li {
+    float: left;
+    padding: 10px;
+}
+
+#nav li a {
+    text-decoration: none;
+    color: grey;
+}
+
+#nav li.active {
+    border-bottom: 1px solid rgb(104, 104, 104);
+}
+
+/*
+    Page Content
+*/
+
+#content {
+    position: absolute;
+    margin-top: 10vh;
+    left: 50%;    
+    transform: translate(-50%, -50%);
+}
+
+#content.search_content {
+    margin-top: 200px;
+}
+
+#content.home {
+    text-align: center;
+}
+
+#content h1 {
+    margin-top: 100px;
+    margin-bottom: 50px;
+}
+
+/*
+    Movie results Table
+*/
+
+table {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    border-collapse: collapse;
+    margin-bottom: 100px;
+}
+
+table th {
+    text-align: left;
+    font-weight: 300;
+    background: #4ad46f;
+}
+
+table, th, td {
+    padding: 10px;
+    border: 1px solid rgb(231, 231, 231);
+}
+
+table a {
+    text-decoration: none;
+    color: rgb(64, 59, 116);
+}
+
+table a:hover {
+    color: rgb(41, 41, 41);
+    font-weight: 900;
+}
+
+/*
+    Search Form
+    .searchInput -> Title
+    .search -> searchBtn
+    year filter
+    genre filter
+    .rating_chooser -> rating filter (drop down box)
+*/
+
+.search_form {
+    position: absolute;
+    width: auto;
+    top: 100px;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.search_form .searchInput {
+    width: 75%;
+}
+
+.search_form .search {
+    width: 20%;
+    background: rgba(79, 231, 117, 0.781);
+}
+
+.search_form input, select {
+    padding: 10px;
+    margin-top: 10px;
+    border: none;
+    border-radius: 2px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    color: black;
+    background: rgba(207, 207, 207, 0.671);
+}
+
+.search_form input:focus {
+    outline: 0;
+}
+
+.rating_chooser {
+    padding: 5px;
+    border: none;
+    outline: 0;
+}
+
+/*
+    The media queries are loaded sequentially, from smallest to largest.
+    Place styles which need to change for a device in the correct block.
+*/
+
+/* Smartphones (portrait and landscape) */
+@media only screen and (min-device-width : 320px) and (max-device-width : 767px) {
+    /* Styles */
+}
+
+/* Tablets (portrait and landscape) */
+@media only screen and (min-device-width : 768px) and (max-device-width : 1223px) {
+    /* Styles */
+}
+
+/* Desktops and laptops */
+@media only screen  and (min-width : 1224px) {
+    /* Styles */
+}
+
+@media (max-width: 800px) {
+    #nav {
+        font-size: 3vw;
+    }
+}
