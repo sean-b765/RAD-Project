@@ -157,7 +157,11 @@ table a:hover {
     Author(s): Sean, Troy
 */
 @media only screen and (min-device-width : 768px) and (max-device-width : 1223px) {
-    /* Styles */
+    
+    /* 1vw = relative to 1% of the viewport width */
+    #nav li a {
+        font-size: 2.2vw;
+    }
 }
 
 /* 
