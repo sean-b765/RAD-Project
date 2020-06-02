@@ -6,7 +6,7 @@
     defined('URL') ? null : define('URL', "http://localhost");
 
     defined('SITE_ROOT') ? null :
-        define('SITE_ROOT', DS.'Documents'.DS.'xampp'.DS.'htdocs'.DS.'movie_manager');
+        define('SITE_ROOT', DS.'Documents'.DS.'xampp'.DS.'htdocs'.DS.'RAD-Project');
         // ^ C:/Documents/xampp/htdocs/movie_manager
 
         // define('SITE_ROOT', DS.'xampp'.DS.'htdocs'.DS.'movie_manager');
