@@ -143,31 +143,47 @@ table a:hover {
     outline: 0;
 }
 
-
-/*  
-    Smartphones (portrait and landscape)
-    Author(s): Reza, Aveneil
+/*
+    The media queries are loaded sequentially, from smallest to largest.
+    Place styles which need to change for a device in the correct block.
 */
+
+/* Smartphones (portrait and landscape) */
 @media only screen and (min-device-width : 320px) and (max-device-width : 767px) {
     /* Styles */
 }
 
-/* 
-    Tablets (portrait and landscape) 
-    Author(s): Sean, Troy
-*/
+/* Tablets (portrait and landscape) */
 @media only screen and (min-device-width : 768px) and (max-device-width : 1223px) {
-    
-    /* 1vw = relative to 1% of the viewport width */
-    #nav li a {
-        font-size: 2.2vw;
-    }
+	
+	* {
+    padding: 5px;
+    margin: 0;
+    font-family: 'Open Sans', sans-serif;
+}
+	
+	#nav {
+	margin-top: 10px;
+    font-size: 3.1vw;
+	border-radius: 10px;
+	}
+	
+	.search_form {
+    position: absolute;
+    width: auto;
+    top: 300px;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
 }
 
-/* 
-    Desktops and laptops 
-    Author(s): Sean
-*/
+/* Desktops and laptops */
 @media only screen  and (min-width : 1224px) {
     /* Styles */
+}
+
+@media (max-width: 800px) {
+    #nav {
+        font-size: 3vw;
+    }
 }
