@@ -44,13 +44,9 @@
 
 #content {
     position: absolute;
-    margin-top: 10vh;
+    margin-top: 200px;
     left: 50%;    
     transform: translate(-50%, -50%);
-}
-
-#content.search_content {
-    margin-top: 200px;
 }
 
 #content.home {
@@ -63,15 +59,18 @@
 }
 
 /*
-    Movie results Table
+    Movie search results and top_searches Table
 */
+
+.movie_table {
+    top: 6vh;
+}
 
 table {
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
     border-collapse: collapse;
-    margin-bottom: 100px;
 }
 
 table th {
@@ -106,8 +105,7 @@ table a:hover {
 
 .search_form {
     position: absolute;
-    width: auto;
-    top: 100px;
+    width: 500px;
     left: 50%;
     transform: translate(-50%, -50%);
 }
@@ -117,7 +115,7 @@ table a:hover {
 }
 
 .search_form .search {
-    width: 20%;
+    width: auto;
     background: rgba(79, 231, 117, 0.781);
 }
 
@@ -127,7 +125,7 @@ table a:hover {
     border: none;
     border-radius: 2px;
     cursor: pointer;
-    font-size: 14px;
+    font-size: 16px;
     font-weight: 500;
     color: black;
     background: rgba(207, 207, 207, 0.671);
@@ -143,19 +141,87 @@ table a:hover {
     outline: 0;
 }
 
-/*  Smartphones (portrait and landscape) 
+/*  Smartphones (mostly portrait)
     Authors: Reza, Aveneil
 */
-@media only screen and (min-device-width : 320px) and (max-device-width : 767px) {
-    /* Styles */
+@media only screen and (min-device-width : 300px) and (max-device-width : 579px) {
+    /* Reza */
+    #nav {
+        font-size: 4.5vw;
+    }
+    #content {
+        top: 7vh;
+        font-size: 3vw;
+    }
+    #content table {
+        font-size: 3vw;
+    }
+
+    /* Sean */
+    .search_form input {
+        font-size: 3.5vw;
+    }.rating_chooser {
+        font-size: 3.5vw;
+    }
+    .movie_table {
+        top: 13vh;
+        left: 7vw;
+    }
+}
+
+/*  Smartphones (mostly landscape) 
+    Authors: Reza, Sean
+*/
+@media only screen and (min-device-width : 580px) and (max-device-width : 767px) {
+    /* Reza */
+    #nav {
+        font-size: 3.5vw;
+    }
+    #content {
+        top: 5vh;
+        font-size: 2.8vw;
+    }
+    #content table {
+        font-size: 2.8vw;
+    }
+
+    /* Sean */
+    .search_form input {
+        font-size: 3vw;
+    }
+    .rating_chooser {
+        font-size: 3vw;
+    }
+    .movie_table {
+        left: 5vw;
+        top: 27vh;
+    }
 }
 
 /*  Tablets (portrait and landscape) 
     Authors: Troy, Sean
 */
 @media only screen and (min-device-width : 768px) and (max-device-width : 1223px) {
+    /* Troy */
     #nav {
         font-size: 2.2vw;
+    }
+    #content {
+        font-size: 2vw;
+    }
+    #content table {
+        font-size: 2vw;
+    }
+
+    /* Sean */
+    .rating_chooser {
+        font-size: 2vw;
+    }
+    .search_form input {
+        font-size: 2vw;
+    }
+    .movie_table {
+        top: 15vh;
     }
 }
 
@@ -163,5 +229,7 @@ table a:hover {
     Authors: Sean
 */
 @media only screen  and (min-width : 1224px) {
-    /* Styles */
+    .movie_table {
+        top: 10vh;
+    }
 }

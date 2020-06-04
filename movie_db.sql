@@ -22,13 +22,17 @@ SET time_zone = "+00:00";
 -- Database: `movie_db`
 --
 
+CREATE DATABASE IF NOT EXISTS movie_db;
+
+USE movie_db;
+
 -- --------------------------------------------------------
 
 --
 -- Table structure for table `movies`
 --
 
-CREATE TABLE `movies` (
+CREATE TABLE IF NOT EXISTS `movies` (
   `ID` int(10) NOT NULL,
   `Title` varchar(32) NOT NULL,
   `Studio` varchar(32) NOT NULL,
@@ -2357,7 +2361,7 @@ INSERT INTO `movies` (`ID`, `Title`, `Studio`, `Status`, `Sound`, `Versions`, `R
 -- Table structure for table `top_searches`
 --
 
-CREATE TABLE `top_searches` (
+CREATE TABLE IF NOT EXISTS `top_searches` (
   `SearchID` int(10) NOT NULL,
   `ID` int(10) NOT NULL,
   `Title` varchar(32) NOT NULL,

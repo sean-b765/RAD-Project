@@ -17,62 +17,62 @@
 
         </ul>
 
-        <!-- HTML Search Form -->
-        <form class="search_form" method="post">
-            <input type="text" class="searchInput" placeholder="Title" name="searchTxt" />
-            <input type="submit" class='search' name='searchBtn' value="Search" /><br/><br/>
-
-            <!-- YEAR 
-                    A datalist contains autofill options -->
-            <input type="text" name="year" placeholder="Year" list="years"/>
-            <datalist id="years">
-                <?php
-                // for the YEAR, GENRE, get the range of values using DISTINCT
-                //      to add to the datalist autofill, to help user.
-                    require_once '../private/initialise.php';
-                    $sql = 'SELECT DISTINCT Year FROM movies ORDER BY Year DESC';
-                    $result = query($sql);
-                if (mysqli_num_rows($result) > 0) {
-                    while ($row = mysqli_fetch_assoc($result)) {
-                        echo '<option value=' . $row['Year'] . '>'. $row["Year"] .'</option>';
-                    }
-                }
-                ?>
-            </datalist>
-
-            <!-- GENRE -->
-            <input type="text" name="genre" placeholder="Genre" list="genres" />
-            <datalist id="genres">
-                <?php
-                    $sql = 'SELECT DISTINCT Genre FROM movies ORDER BY Genre ASC';
-                    $result = query($sql);
-                if (mysqli_num_rows($result) > 0) {
-                    while ($row = mysqli_fetch_assoc($result)) {
-                        echo '<option value=' . $row['Genre'] . '>'. $row["Genre"] .'</option>';
-                    }
-                }
-                ?>
-            </datalist><br/>
-            
-            <!-- RATING -->
-            <select name="rating" class="rating_chooser">
-                    <option value="Any">Any Rating</option>
-                <?php
-                    // get the DISTINCT rating values to add as a combo-box option.
-                    $sql = 'SELECT DISTINCT Rating FROM movies';
-                    $result = query($sql);
-                if (mysqli_num_rows($result) > 0) {
-                    while ($row = mysqli_fetch_assoc($result)) {
-                        echo '<option value=' . $row['Rating'] . '>'. $row["Rating"] .'</option>';
-                    }
-                }
-                ?>
-            </select>
-
-        </form>        
-
         <!-- Page Content (Search Results) -->
         <div id="content" class="search_content">
+
+            <!-- HTML Search Form -->
+            <form class="search_form" method="post">
+                <input type="text" class="searchInput" placeholder="Title" name="searchTxt" />
+                <input type="submit" class='search' name='searchBtn' value="Search" />
+
+                <!-- YEAR 
+                        A datalist contains autofill options -->
+                <input type="text" name="year" placeholder="Year" list="years"/>
+                <datalist id="years">
+                    <?php
+                    // for the YEAR, GENRE, get the range of values using DISTINCT
+                    //      to add to the datalist autofill, to help user.
+                        require_once '../private/initialise.php';
+                        $sql = 'SELECT DISTINCT Year FROM movies ORDER BY Year DESC';
+                        $result = query($sql);
+                    if (mysqli_num_rows($result) > 0) {
+                        while ($row = mysqli_fetch_assoc($result)) {
+                            echo '<option value=' . $row['Year'] . '>'. $row["Year"] .'</option>';
+                        }
+                    }
+                    ?>
+                </datalist>
+
+                <!-- GENRE -->
+                <input type="text" name="genre" placeholder="Genre" list="genres" />
+                <datalist id="genres">
+                    <?php
+                        $sql = 'SELECT DISTINCT Genre FROM movies ORDER BY Genre ASC';
+                        $result = query($sql);
+                    if (mysqli_num_rows($result) > 0) {
+                        while ($row = mysqli_fetch_assoc($result)) {
+                            echo '<option value=' . $row['Genre'] . '>'. $row["Genre"] .'</option>';
+                        }
+                    }
+                    ?>
+                </datalist><br/>
+                
+                <!-- RATING -->
+                <select name="rating" class="rating_chooser">
+                        <option value="Any">Any Rating</option>
+                    <?php
+                        // get the DISTINCT rating values to add as a combo-box option.
+                        $sql = 'SELECT DISTINCT Rating FROM movies';
+                        $result = query($sql);
+                    if (mysqli_num_rows($result) > 0) {
+                        while ($row = mysqli_fetch_assoc($result)) {
+                            echo '<option value=' . $row['Rating'] . '>'. $row["Rating"] .'</option>';
+                        }
+                    }
+                    ?>
+                </select>
+
+            </form>        
             
             <?php
                 $filteredSearch = false; // detect if filters have been applied
@@ -155,7 +155,7 @@
                                         <th>Studio</th>
                                         <th>Status</th>
                                     </tr>';
-                        echo '<p style="margin: 50px 0px 20px 0px;">' . mysqli_num_rows($result) . ' results were found.</p>';
+                        //echo '<p style="margin: 300px 0px 20px 0px;">' . mysqli_num_rows($result) . ' results were found.</p>';
                             // echo out how many movies were found
                         $count = 0;
     
@@ -193,13 +193,13 @@
                         }
                         echo '</table>';
                     } else {
-                        echo 'No movies were found. Please ensure you have correct spelling.';                    
+                        //echo 'No movies were found. Please ensure you have correct spelling.';                    
                     }
                 } else {
-                    echo 'Please check your input.';
+                    //echo 'Please check your input.';
                 }
             } else {
-                echo 'Search for a Title, or use the filters.';
+                //echo '<p>Search for a Title, or use the filters.</p>';
             } // end if 
 
             ?>
