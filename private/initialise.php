@@ -6,13 +6,9 @@
     defined('URL') ? null : define('URL', "http://localhost");
 
     defined('SITE_ROOT') ? null :
-        define('SITE_ROOT', DS.'xampp'.DS.'htdocs'.DS.'RAD-Project');
-        // ^ C:/Documents/xampp/htdocs/movie_manager
-
-        // define('SITE_ROOT', DS.'xampp'.DS.'htdocs'.DS.'movie_manager');
-        // ^ C:/xampp/htdocs/movie_manager
-        
-        // Alter this code to your needs
+        define('SITE_ROOT', DS.'Documents'.DS.'xampp'.DS.'htdocs'.DS.'RAD-Project');
+        // ^ C:/xampp/htdocs/RAD-Project
+        // Alter this code to your directory's needs
 
     defined('SHARED_PATH') ? null : define('SHARED_PATH', SITE_ROOT . DS . 'private');
 
