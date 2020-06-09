@@ -27,6 +27,42 @@ CREATE DATABASE IF NOT EXISTS movie_db;
 USE movie_db;
 
 -- --------------------------------------------------------
+--
+-- Table structure for table `members`
+--
+
+CREATE TABLE `members` (
+  `id` int(20) NOT NULL,
+  `name` varchar(250) DEFAULT NULL,
+  `email` varchar(250) DEFAULT NULL,
+  `MailingOption` varchar(44) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `members`
+--
+
+INSERT INTO `members` (`id`, `name`, `email`, `MailingOption`) VALUES
+(1, 'Ryan', 'ryan.McDonald@gmail.com', 'Both'),
+(2, 'Steve', 'steve.John@gmail.com', 'Monthly'),
+(3, 'Jack', 'j.ss@gmail.net', 'None'),
+(4, 'ssdfs', 'ss.dd@gmail.net', 'Flash News'),
+(5, 'Ken', 'Ken.Bek@yahoo.tafe.com.au', 'Flash News'),
+(6, 'Alfred', 'A.Hans@Gmail.myself.net', 'Flash News');
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `members`
+--
+ALTER TABLE `members`
+  ADD PRIMARY KEY (`id`);
+COMMIT;
+
+
+--------------------------------------------------------
 
 --
 -- Table structure for table `movies`
