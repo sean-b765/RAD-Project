@@ -115,6 +115,8 @@ table a:hover {
 }
 
 .search_form .search {
+    position: relative;
+    margin-right: 0px;
     width: auto;
     background: rgba(79, 231, 117, 0.781);
 }
@@ -136,13 +138,56 @@ table a:hover {
 }
 
 .rating_chooser {
-    padding: 5px;
+    padding: 9px;
     border: none;
     outline: 0;
 }
 
+/*
+    Login styles
+*/
+
+.login {
+    background: rgba(121, 173, 255, 0.75);
+    padding: 10px;
+    border-radius: 5px;
+    position: fixed;
+    right: 15px;
+    top: 15px;
+    /* z-index will bring element to the front */
+    z-index: 999;
+}
+
+.login input {
+    margin: 2px;
+    padding: 3px;
+    font-size: 0.9vw;
+}
+
+.login .login-button {
+    border: none;
+    border-radius: 2px;
+    background: rgba(79, 183, 231, 0.781);
+    position: relative;
+    left: 50%;
+    top: 4px;
+    padding: 5px 10px;
+    transform: translate(-50%);
+    cursor: pointer;
+}
+
+.submit:hover {
+    transition: all 0.25s ease-in-out;
+    background: rgba(79, 231, 117, 0.911);
+}
+
+.logout:hover {
+    transition: all 0.25s ease-in-out;
+    background: rgba(235, 86, 72, 0.897);
+}
+
 /*  Smartphones (mostly portrait)
-    Authors: Reza, Aveneil
+    Authors: Reza, Sean
 */
 @media only screen and (min-device-width : 300px) and (max-device-width : 579px) {
     /* Reza */
@@ -164,8 +209,15 @@ table a:hover {
         font-size: 3.5vw;
     }
     .movie_table {
-        top: 13vh;
         left: 7vw;
+        top: 15vh;
+    }
+
+    .login {
+        font-size: 2.9vw;
+    }
+    .login input {
+        font-size: 2.9vw;
     }
 }
 
@@ -184,17 +236,23 @@ table a:hover {
     #content table {
         font-size: 2.8vw;
     }
-
-    /* Sean */
     .search_form input {
         font-size: 3vw;
     }
     .rating_chooser {
         font-size: 3vw;
     }
+
+    /* Sean */
     .movie_table {
-        left: 5vw;
-        top: 27vh;
+        left: 7vh;
+        top: 21vh;
+    }
+    .login {
+        font-size: 1.9vw;
+    }
+    .login input {
+        font-size: 1.9vw;
     }
 }
 
@@ -212,16 +270,22 @@ table a:hover {
     #content table {
         font-size: 2vw;
     }
-
-    /* Sean */
     .rating_chooser {
         font-size: 2vw;
     }
     .search_form input {
         font-size: 2vw;
     }
+
+    /* Sean */
     .movie_table {
-        top: 15vh;
+        top: 18vh;
+    }
+    .login {
+        font-size: 1.8vw;
+    }
+    .login input {
+        font-size: 1.8vw;
     }
 }
 
@@ -231,5 +295,11 @@ table a:hover {
 @media only screen  and (min-width : 1224px) {
     .movie_table {
         top: 10vh;
+    }
+    .login {
+        font-size: 0.8vw;
+    }
+    .login input {
+        font-size: 0.8vw;
     }
 }

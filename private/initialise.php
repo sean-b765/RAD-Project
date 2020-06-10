@@ -6,7 +6,7 @@
     defined('URL') ? null : define('URL', "http://localhost");
 
     defined('SITE_ROOT') ? null :
-        define('SITE_ROOT', DS.'Documents'.DS.'xampp'.DS.'htdocs'.DS.'RAD-Project');
+        define('SITE_ROOT', DS.'xampp'.DS.'htdocs'.DS.'RAD-Project');
         // ^ C:/xampp/htdocs/RAD-Project
         // Alter this code to your directory's needs
 
@@ -15,5 +15,6 @@
     require_once SHARED_PATH . DS . 'db.php';
     require_once SHARED_PATH . DS . 'db_credentials.php';
     require_once SHARED_PATH . DS . 'functions.php';
+    require_once SHARED_PATH . DS . 'session.php';
 
 ?>

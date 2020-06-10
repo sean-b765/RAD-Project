@@ -17,6 +17,8 @@
 
         </ul>
 
+        <?php include 'login.php'; ?>
+
         <!-- Page Content (Search Results) -->
         <div id="content" class="search_content">
 
@@ -27,7 +29,7 @@
 
                 <!-- YEAR 
                         A datalist contains autofill options -->
-                <input type="text" name="year" placeholder="Year" list="years"/>
+                <input type="text" name="year" class="year" placeholder="Year" list="years"/>
                 <datalist id="years">
                     <?php
                     // for the YEAR, GENRE, get the range of values using DISTINCT

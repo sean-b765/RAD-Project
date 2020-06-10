@@ -15,6 +15,9 @@
             <li><a href="public/search.php">Search</a></li>
 
         </ul>
+
+        <?php include 'public/login.php'; ?> 
+
         <!-- Content -->
         <div id="content" class="home">
 
@@ -32,7 +35,7 @@
                 </tr>
                 <?php
 
-                    require_once 'private/initialise.php';
+                    
                     // Choose the top 10 searched movies from the top_searches table
                     $sql = "SELECT SearchAmount, Title, ID FROM top_searches ORDER BY SearchAmount DESC LIMIT 10";
                     $result = query($sql);
