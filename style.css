@@ -115,6 +115,8 @@ table a:hover {
 }
 
 .search_form .search {
+    position: relative;
+    margin-right: 0px;
     width: auto;
     background: rgba(79, 231, 117, 0.781);
 }
@@ -136,7 +138,7 @@ table a:hover {
 }
 
 .rating_chooser {
-    padding: 5px;
+    padding: 9px;
     border: none;
     outline: 0;
 }
@@ -165,16 +167,23 @@ table a:hover {
 .login .login-button {
     border: none;
     border-radius: 2px;
-    background: rgb(20, 245, 133);
+    background: rgba(79, 183, 231, 0.781);
     position: relative;
     left: 50%;
     top: 4px;
     padding: 5px 10px;
     transform: translate(-50%);
+    cursor: pointer;
 }
 
-.login .logout {
-    background: rgb(243, 103, 103);
+.submit:hover {
+    transition: all 0.25s ease-in-out;
+    background: rgba(79, 231, 117, 0.911);
+}
+
+.logout:hover {
+    transition: all 0.25s ease-in-out;
+    background: rgba(235, 86, 72, 0.897);
 }
 
 /*  Smartphones (mostly portrait)
@@ -200,15 +209,15 @@ table a:hover {
         font-size: 3.5vw;
     }
     .movie_table {
-        top: 13vh;
         left: 7vw;
+        top: 15vh;
     }
 
     .login {
-        font-size: 2.5vw;
+        font-size: 2.9vw;
     }
     .login input {
-        font-size: 2.5vw;
+        font-size: 2.9vw;
     }
 }
 
@@ -236,8 +245,8 @@ table a:hover {
 
     /* Sean */
     .movie_table {
-        left: 5vw;
-        top: 27vh;
+        left: 7vh;
+        top: 21vh;
     }
     .login {
         font-size: 1.9vw;
@@ -270,7 +279,7 @@ table a:hover {
 
     /* Sean */
     .movie_table {
-        top: 15vh;
+        top: 18vh;
     }
     .login {
         font-size: 1.8vw;
@@ -286,5 +295,11 @@ table a:hover {
 @media only screen  and (min-width : 1224px) {
     .movie_table {
         top: 10vh;
+    }
+    .login {
+        font-size: 0.8vw;
+    }
+    .login input {
+        font-size: 0.8vw;
     }
 }
