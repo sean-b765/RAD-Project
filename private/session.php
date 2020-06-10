@@ -1,13 +1,15 @@
 <?php
 
-    require 'initialize.php';
+    require 'initialise.php';
 
     class Session
     {
 
+        // boolean which reflects session status
         private $logged_in;
 
-        public $username;
+        public $user_name;
+        public $user_email;
 
 
         function __construct()
@@ -19,10 +21,16 @@
         }//end __construct()
 
 
-        public function login($name)
+        public function login($user, $email)
         {
-            $this->username     = $_SESSION['username'] = $name;
-            $this->logged_in = true;
+            if (user_exists($user, $email)) {
+                $this->user_email = $_SESSION['email'] = $email;
+                $this->user_name  = $_SESSION['username'] = $user;
+                $this->logged_in  = true;
+            } else {
+                // do nothing
+            }
+            
 
         }//end login()
 
@@ -32,19 +40,25 @@
             // stop the PHP SESSION
             session_unset();
             session_destroy();
-            $this->username     = '';
-            $this->logged_in = false;
+            $this->user_email = '';
+            $this->user_name  = '';
+            $this->logged_in  = false;
 
         }//end logout()
 
 
+        public function is_logged_in() {
+            return $this->logged_in;
+        }
+
+
         private function check_login()
         {
-            if (isset($_SESSION['username'])) {
-                $this->username  = $_SESSION['username'];
+            if (isset($_SESSION['email'])) {
+                $this->user_email  = $_SESSION['email'];
                 $this->logged_in = true;
             } else {
-                unset($this->username);
+                unset($this->user_email);
                 $this->logged_in = false;
             }
 

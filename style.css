@@ -141,8 +141,44 @@ table a:hover {
     outline: 0;
 }
 
+/*
+    Login styles
+*/
+
+.login {
+    background: rgba(121, 173, 255, 0.75);
+    padding: 10px;
+    border-radius: 5px;
+    position: fixed;
+    right: 15px;
+    top: 15px;
+    /* z-index will bring element to the front */
+    z-index: 999;
+}
+
+.login input {
+    margin: 2px;
+    padding: 3px;
+    font-size: 0.9vw;
+}
+
+.login .login-button {
+    border: none;
+    border-radius: 2px;
+    background: rgb(20, 245, 133);
+    position: relative;
+    left: 50%;
+    top: 4px;
+    padding: 5px 10px;
+    transform: translate(-50%);
+}
+
+.login .logout {
+    background: rgb(243, 103, 103);
+}
+
 /*  Smartphones (mostly portrait)
-    Authors: Reza, Aveneil
+    Authors: Reza, Sean
 */
 @media only screen and (min-device-width : 300px) and (max-device-width : 579px) {
     /* Reza */
@@ -167,6 +203,13 @@ table a:hover {
         top: 13vh;
         left: 7vw;
     }
+
+    .login {
+        font-size: 2.5vw;
+    }
+    .login input {
+        font-size: 2.5vw;
+    }
 }
 
 /*  Smartphones (mostly landscape) 
@@ -184,17 +227,23 @@ table a:hover {
     #content table {
         font-size: 2.8vw;
     }
-
-    /* Sean */
     .search_form input {
         font-size: 3vw;
     }
     .rating_chooser {
         font-size: 3vw;
     }
+
+    /* Sean */
     .movie_table {
         left: 5vw;
         top: 27vh;
+    }
+    .login {
+        font-size: 1.9vw;
+    }
+    .login input {
+        font-size: 1.9vw;
     }
 }
 
@@ -212,16 +261,22 @@ table a:hover {
     #content table {
         font-size: 2vw;
     }
-
-    /* Sean */
     .rating_chooser {
         font-size: 2vw;
     }
     .search_form input {
         font-size: 2vw;
     }
+
+    /* Sean */
     .movie_table {
         top: 15vh;
+    }
+    .login {
+        font-size: 1.8vw;
+    }
+    .login input {
+        font-size: 1.8vw;
     }
 }
 
