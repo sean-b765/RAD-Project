@@ -14,6 +14,7 @@
 
             <li><a href="../index.php">Home</a></li>
             <li class="active"><a href="search.php">Search</a></li>
+            <li><a href="members.php">Members</a></li>
 
         </ul>
 

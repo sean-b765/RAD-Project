@@ -13,6 +13,7 @@
 
             <li class="active"><a href="index.php">Home</a></li>
             <li><a href="public/search.php">Search</a></li>
+            <li><a href="public/members.php">Members</a></li>
 
         </ul>
 

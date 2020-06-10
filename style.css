@@ -186,6 +186,50 @@ table a:hover {
     background: rgba(235, 86, 72, 0.897);
 }
 
+/*
+    Admin Form
+*/
+
+#adminForm {
+    margin-bottom: 20px;
+}
+
+#adminForm input {
+    padding: 10px;
+    margin-top: 10px;
+    border: none;
+    border-radius: 2px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 500;
+    color: black;
+    background: rgba(207, 207, 207, 0.671);
+}
+
+#adminForm input:focus {
+    outline: 0;
+}
+
+#adminForm .id_input {
+    width: 40px;
+}
+
+#adminForm .update_record {
+    background: rgba(79, 231, 87, 0.897);
+}
+
+/* 
+    Admin Users Table
+*/
+
+#users_table td:first-child {
+    background: rgb(105, 136, 236);
+    color: whitesmoke;
+    cursor: pointer;
+    text-align: center;
+}
+
+
 /*  Smartphones (mostly portrait)
     Authors: Reza, Sean
 */
