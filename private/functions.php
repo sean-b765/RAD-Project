@@ -16,10 +16,20 @@
 
     // easy query function to add a new user into the members table
     function add_user($user, $email, $mailing_option) {
-        // check that email is not already in use, call user_exists()
+        // check that email is not already in use,
         //  then add
-        $sql = "INSERT INTO members (name, email, MailingOption) VALUES ('" . $user .  "', '" . $email . "', '" . $mailing_option . "');";
-        return query($sql);
+        $sql = "SELECT * FROM members WHERE email='" . $email . "'";
+        $result = query($sql);
+
+        // if the email does not exist in the db, add user
+        if (mysqli_num_rows($result) === 0) {
+            // there CANNOT be an email already in the database
+            $sql = "INSERT INTO members (name, email, MailingOption) VALUES ('" . $user .  "', '" . $email . "', '" . $mailing_option . "');";
+            return query($sql);
+        } else {
+            // return false, as we cannot add a duplicate email
+            return false;
+        }
     }
 
     function user_exists($user, $email) {
@@ -53,5 +63,10 @@
         $none    = "None";
 
         
+    }
+
+    function get_all_users() {
+        $sql = "SELECT * FROM members";
+        return query($sql);
     }
 ?>

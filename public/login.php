@@ -69,9 +69,9 @@
                         // the user is to be added!
                         if (add_user($username, $email, $mailing_option) === true) {
                             echo 'Added new user.<br/>';
-                            // log in the session, and redirect to same page
+                            // log in the session, and redirect to search page
                             $session->login($username, $email);
-                            header('Location: ' . $_SERVER["PHP_SELF"]);
+                            header('Location: ' . FULL_URL . 'public/search.php');
                         } else {
                             echo 'Error when adding new user.<br/>';
                         }
@@ -84,10 +84,10 @@
                         if (user_exists($username, $email)) {
                             // log in the session, and redirect to SEARCH page
                             $session->login($username, $email);
-                            header('Location: ' . $_SERVER["PHP_SELF"]);
+                            header('Location: ' . FULL_URL . 'public/search.php');
                         } else {
                             // the user does not exist, so
-                            //  redirect to same page but provide variables in URL for form input
+                            //  redirect to same page but provide variables in URL for form input to retrieve again
                             header('Location: ' . $_SERVER["PHP_SELF"] . '?user=' . $username . '&email=' . $email);
                         }
                     }
