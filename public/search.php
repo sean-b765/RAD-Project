@@ -6,7 +6,16 @@
         <link rel="stylesheet" href="../style.css" />
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
 
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <script type="text/javascript" rel="javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+        <?php include 'login.php'; ?>
+
+        
+        <script type="text/javascript" src="star_rating.js"></script>
+
     </head>
+
 
     <body>
         <!-- Navigation Menu -->
@@ -18,7 +27,7 @@
 
         </ul>
 
-        <?php include 'login.php'; ?>
+        <?php include 'star_rating.php'; ?>
 
         <!-- Page Content (Search Results) -->
         <div id="content" class="search_content">
@@ -140,7 +149,6 @@
                     // no filters were applied, but searchTerm still needs to be added to SQL
                     $sql .= " WHERE Title LIKE '%" . $searchTerm . "%'";
                 }
-
                 // get the query result
                 $result = query($sql);
 
@@ -190,9 +198,27 @@
                                             <td> ' . $row['Year'] . ' </td>
                                             <td> ' . $row['Genre'] . ' </td>
                                             <td> ' . $row['Rating'] . ' </td>
-                                            <td> ' . $row['Studio'] . ' </td>
-                                            <td> ' . $row['Status'] . ' </td>
-                                        </tr>';
+                                            <td> ' . $row['Studio'] . ' </td>';
+                                            
+                            // show star rating if logged in
+                            if ($session->is_logged_in()) {
+                                // check if the user has rated this movie yet
+                                $movie_rating = get_user_movie_rating($_SESSION['id'], $row['ID']);
+                                if (mysqli_num_rows($movie_rating)) {
+                                    // they have rated this movie,
+                                    echo    '<td style="text-align: center;">' . mysqli_fetch_assoc($movie_rating)['Stars'] . '
+                                                <span class="rater fa fa-star checked" value="'. $row['ID'] .'" ></span> 
+                                            </td>';
+                                } else {
+                                    // they have not
+                                    echo    '<td style="text-align: center;">
+                                                <span class="rater fa fa-star checked" value="'. $row['ID'] .'" ></span> 
+                                            </td>';
+                                }
+                            } else {
+                                echo        '<td>'. $row['Status'] .'</td>';
+                            }
+                            echo        '</tr>';
                         }
                         echo '</table>';
                     } else {
@@ -207,6 +233,10 @@
 
             ?>
         </div> <!-- id="content" -->
+
+        <div id="member_id" style="display: none;">
+            <?php echo $_SESSION['id']?>
+        </div>
     </body>
 
 </html>

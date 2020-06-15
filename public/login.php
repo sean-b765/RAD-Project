@@ -23,6 +23,19 @@
         // if we are already logged in, add a logout button and display a welcome
         if ($session->is_logged_in()) {
             echo 'Welcome, ' . $_SESSION['username'] . '<br/>';
+
+            // check if user needs to set their password
+            if ($_SESSION['group'] === 'Admin' || $_SESSION['group'] === 'ACME') {
+                if (user_needs_to_set_password($_SESSION['email'])) {
+                    // link to members page or public/members page 
+                    if (file_exists('public/members.php')) {
+                        echo '<a href="public/members.php" style="color: red; text-decoration: none; font-weight: bold;">Change Password</a><br/>';
+                    } else {
+                        echo '<a href="members.php" style="color: red; text-decoration: none; font-weight: bold;">Change Password</a><br/>';
+                    }
+                }
+            }
+
             echo '  <input type="submit" class="login-button logout" name="logout" value="Log Out" />';
 
             // when pressing logout, stop session and reload page
@@ -31,25 +44,30 @@
                 header('Location: ' . $_SERVER["PHP_SELF"]);
             }
         } else {
+            // has not already submitted
             if (!$submitted = isset($_GET['user']) && isset($_GET['email']) !== '') {
                 // show the Username Email fields
                 echo '<input type="text" name="username" placeholder="Username" /><br/>
                 <input type="email" name="email" placeholder="Email" /><br/>';
             } else { 
                 // the URL will contain their username/email from 
-                //      the last redirect (since user did not exist)
+                //      the last redirect (user did not exist)
                 // add radio buttons to form,
                 //  and we will get them to sign up
 
                 // input containing values from URL
-                echo '  <input type="text" name="username" value="' . $_GET['user'] . '" /><br/>
-                        <input type="email" name="email" value="' . $_GET['email'] . '" /><br/>';
+                $user   = $_GET['user'];
+                $email  = $_GET['email'];
+
+                echo '  <input type="text" name="username" value="' . $user . '" /><br/>
+                        <input type="email" name="email" value="' . $email . '" /><br/>';
 
                 // radio buttons for newsletter options
                 echo '  <input type="radio" name="newsletter" value="Monthly">
                             <label for="monthly">Monthly Newsletter</label><br/>';
                 echo '  <input type="radio" name="newsletter" value="None">
                             <label for="monthly">Don\'t send me news</label><br/>';
+
             
             }
 
@@ -82,9 +100,17 @@
                     if ($username !== '' && $email !== '') {
                         // username and email wasn't empty, proceed
                         if (user_exists($username, $email)) {
-                            // log in the session, and redirect to SEARCH page
-                            $session->login($username, $email);
-                            header('Location: ' . FULL_URL . 'public/search.php');
+                            if (user_is_admin($email)) {
+                                // the user is admin, so they must input their password
+                                if (isset($_POST['password']) {
+                                    
+                                }
+                            } else {
+                                // regular user (password not required)
+                                // log in the session, and redirect to SEARCH page
+                                $session->login($username, $email);
+                                header('Location: ' . FULL_URL . 'public/search.php');
+                            }
                         } else {
                             // the user does not exist, so
                             //  redirect to same page but provide variables in URL for form input to retrieve again
