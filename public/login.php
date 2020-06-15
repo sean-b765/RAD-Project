@@ -100,17 +100,9 @@
                     if ($username !== '' && $email !== '') {
                         // username and email wasn't empty, proceed
                         if (user_exists($username, $email)) {
-                            if (user_is_admin($email)) {
-                                // the user is admin, so they must input their password
-                                if (isset($_POST['password']) {
-                                    
-                                }
-                            } else {
-                                // regular user (password not required)
-                                // log in the session, and redirect to SEARCH page
-                                $session->login($username, $email);
-                                header('Location: ' . FULL_URL . 'public/search.php');
-                            }
+                            // log in the session, and redirect to SEARCH page
+                            $session->login($username, $email);
+                            header('Location: ' . FULL_URL . 'public/search.php');
                         } else {
                             // the user does not exist, so
                             //  redirect to same page but provide variables in URL for form input to retrieve again

@@ -63,6 +63,11 @@
 
                             if (user_needs_to_set_password($_SESSION['email'])) {
                                 include 'set_password.php';
+                            } else if (!isset($_SESSION['password'])) {
+
+                                // ask for password
+                                include 'enter_password.php';
+
                             } else {
 
                                 mysqli_free_result($result);

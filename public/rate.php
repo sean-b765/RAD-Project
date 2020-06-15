@@ -12,6 +12,10 @@
 
     if (isset($_POST['s_id']) && isset($_POST['stars'])  &&  isset($_POST['movie_id'])) {
         $result = insert_member_rating($_POST['stars'], $_POST['movie_id'], $_POST['s_id']);
+
+        // send update to all clients via WebSocket
+        //  as the ratings have changed
+
         echo json_encode('MemberID: ' . $_POST['s_id'] . ' MovieID: ' . $_POST['movie_id'] . ' Stars: ' . $_POST['stars']);
     } else {
         // a POST request was sent here without any variables ...
