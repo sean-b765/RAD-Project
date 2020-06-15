@@ -9,8 +9,12 @@
         private $logged_in;
 
         public $user_name;
+        // user email is unique for Member accounts
         public $user_email;
+        public $user_id;
 
+        public $user_group;
+        
 
         function __construct()
         {
@@ -23,9 +27,16 @@
 
         public function login($user, $email)
         {
+            // get ID from user, email to store with Email, Name in SESSION
+            $result = get_users_group($email);
+
+            $row = mysqli_fetch_assoc($result);
+
             if (user_exists($user, $email)) {
                 $this->user_email = $_SESSION['email'] = $email;
                 $this->user_name  = $_SESSION['username'] = $user;
+                $this->user_id    = $_SESSION['id'] = $row['id'];
+                $this->user_group = $_SESSION['group'] = $row['Group_Name'];
                 $this->logged_in  = true;
             } else {
                 // do nothing
@@ -42,6 +53,7 @@
             session_destroy();
             $this->user_email = '';
             $this->user_name  = '';
+            $this->user_id    = '';
             $this->logged_in  = false;
 
         }//end logout()

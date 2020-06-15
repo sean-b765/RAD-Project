@@ -1,5 +1,11 @@
 <html>
 
+<!-- 
+
+        Members.php
+
+ -->
+
     <head>
 
         <title>Members Area</title>
@@ -7,6 +13,7 @@
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
 
         <script>
+            // Author : Sean
             // JavaScript function to allow user to click on ID and update form
             function popFields(x) {
                 var tabRows = document.getElementById("users_table").rows.length;
@@ -42,77 +49,86 @@
 
                     <?php 
                     // check here if the user is an admin
-                    $sql = 'SELECT * FROM members WHERE email="' . $_SESSION["email"] . '" AND name="' . $_SESSION['username'] . '"';
-                    
+                    $sql = 'SELECT groups.Name AS Group_Name FROM members 
+                            INNER JOIN group_members ON members.id = group_members.MemberID 
+                            INNER JOIN groups ON groups.ID = group_members.GroupID 
+                            WHERE email="' . $_SESSION["email"] . '" AND members.name="' . $_SESSION['username'] . '"';
                     $result = query($sql);
                     $numRows = mysqli_num_rows($result);
                     
                     if ($numRows >= 0) {
                         $row = $result->fetch_assoc();
-                        $isAdmin = $row["IsAdmin"];
-                        if ($isAdmin === '1') {
-                            // the client is an admin, display admin things
-                            mysqli_free_result($result);
+                        if ($row["Group_Name"] === 'Admin' || $row["Group_Name"] === "ACME") {
+                            // The member belongs to Admin / ACME user group
 
-                            if (isset($_POST['update_record'])) {
-                                $sql = 'UPDATE members SET MailingOption="' . $_POST['mail_options'] . '" WHERE id="' . $_POST['id'] . '"';
-                                $result = query($sql);
-                                if ($result) {
-                                    echo 'Updated 1 record.';
-                                }
-                            }
+                            if (user_needs_to_set_password($_SESSION['email'])) {
+                                include 'set_password.php';
+                            } else {
 
-                            ?>
-                                <form id="adminForm" method="post">
-                                    <input type="text" name="id" class="id_input" readonly/>
+                                mysqli_free_result($result);
 
-                                    <input type="text" name="email" placeholder="Email"/>
-
-                                    <select name="mail_options">
-                                        <?php
-                                            $sql = 'SELECT DISTINCT MailingOption FROM members';
-                                            $result = query($sql);
-                                            while ($row = mysqli_fetch_assoc($result)) {
-                                                $mail = $row["MailingOption"];
-                                                echo '<option value="'.$mail.'">'.$mail.'</option>';
-                                            }
-                                            
-                                        ?>
-                                    </select>
-
-                                    <input type="submit" value="Update" name="update_record" class="update_record" /><br/>
-                                </form>
-
-                                    <!-- All Users table -->
-                                <table id="users_table">
-                                    <tr>
-                                        <th>ID</th>
-                                        <th>Name</th>
-                                        <th>Email</th>
-                                        <th>MailingOption</th>
-                                        <th>IsAdmin</th>
-                                    </tr>
-
-                                    <?php
-                                    $result = get_all_users();
-                                    // get all users in members,
-                                    //  echo them out into a table row
-                                    while ($row = mysqli_fetch_assoc($result)) {
-                                        echo '  <tr>
-                                                    <td onclick="popFields('.$row["id"].')">' . $row['id'] . '</td>
-                                                    <td>' . $row['name'] . '</td>
-                                                    <td>' . $row['email'] . '</td>
-                                                    <td>' . $row['MailingOption'] . '</td>
-                                                    <td>' . $row['IsAdmin'] . '</td>
-                                                </tr>';
+                                // Update record clicked
+                                if (isset($_POST['update_record'])) {
+                                    $sql = 'UPDATE members SET MailingOption="' . $_POST['mail_options'] . '" WHERE id="' . $_POST['id'] . '"';
+                                    $result = query($sql);
+                                    if ($result) {
+                                        echo 'Updated 1 record.';
                                     }
+                                }
+
+                                ?>
+                            
+                                    <form id="adminForm" method="post">
+                                        <input type="text" name="id" class="id_input" placeholder="ID" readonly />
+
+                                        <input type="text" name="email" placeholder="Email" />
+
+                                        <select name="mail_options">
+                                            <?php
+                                                $sql = 'SELECT DISTINCT MailingOption FROM members';
+                                                $result = query($sql);
+                                                while ($row = mysqli_fetch_assoc($result)) {
+                                                    $mail = $row["MailingOption"];
+                                                    echo '<option value="'.$mail.'">'.$mail.'</option>';
+                                                }
+                                                
+                                            ?>
+                                        </select>
+
+                                        <input type="submit" value="Update" name="update_record" class="update_record" /><br/>
+                                    </form>
+
+                                        <!-- All Users table -->
+                                    <table id="users_table">
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Name</th>
+                                            <th>Email</th>
+                                            <th>MailingOption</th>
+                                            <th>Group</th>
+                                        </tr>
+
+                                        <?php
+                                        $result = get_all_users_groups();
+                                        // get all users in members,
+                                        //  display them in a table row
+                                        while ($row = mysqli_fetch_assoc($result)) {
+                                            echo '  <tr>
+                                                        <td onclick="popFields('.$row["id"].')">' . $row['id'] . '</td>
+                                                        <td>' . $row['name'] . '</td>
+                                                        <td>' . $row['email'] . '</td>
+                                                        <td>' . $row['MailingOption'] . '</td>
+                                                        <td>' . $row['Group_Name'] . '</td>
+                                                    </tr>';
+                                        }
 
 
-                                    mysqli_free_result($result);
-                                    ?>
+                                        mysqli_free_result($result);
+                                        ?>
 
-                                </table>
+                                    </table>
                             <?php
+                            }
                         } else {
                             // the client is regular user
                         }

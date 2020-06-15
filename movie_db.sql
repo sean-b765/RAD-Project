@@ -31,28 +31,92 @@ USE movie_db;
 -- Table structure for table `members`
 --
 
-CREATE TABLE `members` (
-  `id` int(20) NOT NULL AUTO_INCREMENT,
-  `name` varchar(250) NOT NULL,
-  `email` varchar(250) NOT NULL,
+CREATE TABLE IF NOT EXISTS `members` (
+  `ID` int(20) NOT NULL AUTO_INCREMENT,
+  `Name` varchar(250) NOT NULL,
+  `Email` varchar(250) NOT NULL,
+  `Password` varchar(250) NULL DEFAULT NULL,
   `MailingOption` varchar(44) NOT NULL,
-  `IsAdmin` BIT(1) DEFAULT 0,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `members`
 --
 
-INSERT INTO `members` (`name`, `email`, `MailingOption`, `IsAdmin`) VALUES
-('Ryan', 'ryan.McDonald@gmail.com', 'Both', 0),
-('admin', 'admin@cite', 'None', 1),
-('Steve', 'steve.John@gmail.com', 'Monthly', 0),
-('Jack', 'j.ss@gmail.net', 'None', 0),
-('ssdfs', 'ss.dd@gmail.net', 'Flash News', 0),
-('Ken', 'Ken.Bek@yahoo.tafe.com.au', 'Flash News', 0),
-('Alfred', 'A.Hans@Gmail.myself.net', 'Flash News', 0);
+INSERT INTO `members` (`id`, `name`, `email`, `MailingOption`) VALUES
+(1, 'admin', 'admin@cite', 'None'),
+(2, 'Ryan', 'ryan.McDonald@gmail.com', 'Both'),
+(3, 'Steve', 'steve.John@gmail.com', 'Monthly'),
+(4, 'Jack', 'j.ss@gmail.net', 'None'),
+(5, 'ssdfs', 'ss.dd@gmail.net', 'Flash News'),
+(6, 'Ken', 'Ken.Bek@yahoo.tafe.com.au', 'Flash News'),
+(7, 'Alfred', 'A.Hans@Gmail.myself.net', 'Flash News');
 
+-- --------------------------------------------------------
+--
+-- Table structure for table `Groups`
+--
+
+CREATE TABLE IF NOT EXISTS groups (
+  ID INT(10) NOT NULL AUTO_INCREMENT,
+  Name VARCHAR(250) NOT NULL,
+  PRIMARY KEY (ID)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+INSERT INTO groups(ID, Name) VALUES
+(0, 'Admin'),
+(1, 'ACME'),
+(2, 'Users');
+
+-- --------------------------------------------------------
+--
+-- Table structure for table `Group_Members`
+--  defines the group/member relationship
+--
+
+CREATE TABLE IF NOT EXISTS group_members (
+  ID INT(10) NOT NULL AUTO_INCREMENT,
+  GroupID INT(10) NOT NULL,
+  MemberID INT(10) NOT NULL,
+  PRIMARY KEY(ID),
+  FOREIGN KEY(GroupID) REFERENCES groups(ID),
+  FOREIGN KEY(MemberID) REFERENCES members(ID)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+INSERT INTO group_members(ID, GroupID, MemberID) VALUES
+(0, 0, 1);
+
+-- --------------------------------------------------------
+--
+-- Table structure for table `Streaming`
+--  will contain the top 10 most rated movies, ordered by Star Rating DESCENDING
+--
+
+CREATE TABLE IF NOT EXISTS streaming (
+  ID INT(10) NOT NULL AUTO_INCREMENT,
+  MovieID INT(10) NOT NULL,
+  PRIMARY KEY(ID),
+  FOREIGN KEY (MovieID) REFERENCES movies(ID)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+--
+-- Table structure for table `Member_Ratings`
+--  contains the members who rated what movie. keeps track of member ratings
+--
+
+CREATE TABLE IF NOT EXISTS member_ratings (
+  ID INT(10) NOT NULL AUTO_INCREMENT,
+  MemberID INT(10) NOT NULL,
+  MovieID INT(10) NOT NULL,
+  Stars INT(10) NOT NULL,
+  PRIMARY KEY(ID),
+  FOREIGN KEY(MemberID) REFERENCES members(ID),
+  FOREIGN KEY(MovieID) REFERENCES movies(ID)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
 --
 -- Table structure for table `movies`
 --
@@ -68,7 +132,11 @@ CREATE TABLE IF NOT EXISTS `movies` (
   `Rating` varchar(16) NOT NULL,
   `Year` int(10) NOT NULL,
   `Genre` varchar(32) NOT NULL,
-  `Aspect` varchar(16) NOT NULL
+  `Aspect` varchar(16) NOT NULL,
+  `AvgRating` FLOAT(10) NOT NULL,
+  `TotalIntegerRating` INT(20) NOT NULL,
+  `NumberOfRatings` INT(10) NOT NULL,
+  PRIMARY KEY(`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --

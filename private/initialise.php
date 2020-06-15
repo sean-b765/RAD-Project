@@ -5,6 +5,8 @@
 
     defined('URL') ? null : define('URL', "http://localhost");
 
+    defined('FULL_URL') ? null : define('FULL_URL', URL.'/RAD-Project/');
+
     defined('SITE_ROOT') ? null :
         define('SITE_ROOT', DS.'xampp'.DS.'htdocs'.DS.'RAD-Project');
         // ^ C:/xampp/htdocs/RAD-Project

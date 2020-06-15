@@ -21,14 +21,40 @@
         $sql = "SELECT * FROM members WHERE email='" . $email . "'";
         $result = query($sql);
 
+        global $database;
+
         // if the email does not exist in the db, add user
         if (mysqli_num_rows($result) === 0) {
             // there CANNOT be an email already in the database
             $sql = "INSERT INTO members (name, email, MailingOption) VALUES ('" . $user .  "', '" . $email . "', '" . $mailing_option . "');";
-            return query($sql);
+
+            // query data base to insert new member
+            $return_result = query($sql);
+
+            // get last id of insert query
+            $last_id = mysqli_insert_id($database->conn);
+            //  add the new member into USERS group on sign up
+            $sql = "INSERT INTO group_members (GroupID, MemberID) VALUES (2, '" . $last_id . "')";
+            query($sql);
+            
+            return $return_result;
         } else {
             // return false, as we cannot add a duplicate email
             return false;
+        }
+    }
+
+    function insert_member_rating($stars, $movie_id, $member_id) {
+        $sql = 'SELECT * FROM member_ratings WHERE MemberID="' . $member_id . '" AND MovieID="' . $movie_id . '"';
+        $result = query($sql);
+        if (mysqli_num_rows($result) === 0) {
+            // insert
+            $sql = 'INSERT INTO member_ratings (MemberID, MovieID, Stars) VALUES ('. $member_id .', ' . $movie_id . ', ' . $stars . ')';
+            return query($sql);
+        } else {
+            // don't insert, update
+            $sql = 'UPDATE member_ratings SET Stars=' . $stars . ' WHERE MovieID=' . $movie_id . ' AND MemberID=' . $member_id;
+            return query($sql);
         }
     }
 
@@ -65,8 +91,70 @@
         
     }
 
+    // Get a member's star rating of a movie
+    function get_user_movie_rating($member_id, $movie_id) {
+        $sql = 'SELECT Stars FROM member_ratings WHERE MemberID=' . $member_id . ' AND MovieID=' . $movie_id;
+        return query($sql);
+    }
+
     function get_all_users() {
         $sql = "SELECT * FROM members";
         return query($sql);
+    }
+
+    // Get users, and their group name
+    function get_all_users_groups() {
+        $sql = "SELECT members.*, groups.Name AS Group_Name FROM members
+                INNER JOIN group_members ON members.id = group_members.MemberID
+                INNER JOIN groups ON groups.ID = group_members.GroupID";
+        return query($sql);
+    }
+
+    function get_users_group($email) {
+        $sql = "SELECT members.*, groups.Name AS Group_Name FROM members
+                INNER JOIN group_members ON members.id = group_members.MemberID
+                INNER JOIN groups ON groups.ID = group_members.GroupID
+                WHERE members.email = '" . $email . "'";
+        return query($sql);
+    }
+
+    function user_needs_to_set_password($email) {
+        $sql = "SELECT * FROM members
+        WHERE email='" . $email . "'";
+
+        $result = query($sql);
+
+        $row = mysqli_fetch_assoc($result);
+
+        if (trim($row['Password']) === '' || !isset($row['Password'])) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    function set_password($user_id, $password) {
+        $sql = 'UPDATE members 
+                SET members.Password="' . $password . '" 
+                WHERE id="' . $user_id . '"';
+        return query($sql);
+    }
+
+    function user_is_admin($email) {
+        $sql = "SELECT members.*, groups.Name AS Group_Name FROM members
+                INNER JOIN group_members ON members.id = group_members.MemberID
+                INNER JOIN groups ON groups.ID = group_members.GroupID
+                WHERE members.email = '" . $email . "'";
+        $result = query($sql);
+        // fetch associative array
+        $row = mysqli_fetch_assoc($result);
+
+        // if user is Admin or ACME, return true
+        //  otherwise, return false
+        if ($row['Group_Name'] === 'Admin' || $row['Group_Name'] === 'ACME') {
+            return true;
+        } else {
+            return false;
+        }
     }
 ?>
