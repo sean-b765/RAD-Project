@@ -12,6 +12,7 @@
         // user email is unique for Member accounts
         public $user_email;
         public $user_id;
+        public $user_password;
 
         public $user_group;
         
@@ -51,12 +52,27 @@
             // stop the PHP SESSION
             session_unset();
             session_destroy();
-            $this->user_email = '';
-            $this->user_name  = '';
-            $this->user_id    = '';
-            $this->logged_in  = false;
+            $this->user_email    = '';
+            $this->user_name     = '';
+            $this->user_id       = '';
+            $this->user_password = '';
+            $this->logged_in     = false;
 
         }//end logout()
+
+
+        // function to authorise admin accounts
+        public function authorise($user_id, $password) {
+            if ($this->is_logged_in()) {
+                $real_password = get_password($user_id);
+                // if admin's entered password equals their actual password
+                if ($real_password === $password) {
+                    $this->user_password = $_SESSION['password'] = $password;
+                    return true;
+                }
+            }
+            return false;
+        }
 
 
         public function is_logged_in() {

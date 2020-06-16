@@ -133,9 +133,9 @@ CREATE TABLE IF NOT EXISTS `movies` (
   `Year` int(10) NOT NULL,
   `Genre` varchar(32) NOT NULL,
   `Aspect` varchar(16) NOT NULL,
-  `AvgRating` FLOAT(10) NOT NULL,
-  `TotalIntegerRating` INT(20) NOT NULL,
-  `NumberOfRatings` INT(10) NOT NULL,
+  `AvgRating` FLOAT(10) NULL,
+  `TotalIntegerRating` INT(20) NULL,
+  `NumberOfRatings` INT(10) NULL,
   PRIMARY KEY(`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 

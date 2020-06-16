@@ -17,6 +17,7 @@
         //  if it reaches a minimum criteria: Minimum eight characters, at least one letter and one number
         if (preg_match("/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/", $_POST['password'])) {
             set_password($_SESSION['id'], $_POST['password']);
+            $session->authorise($_SESSION['id'], $_POST['password']);
             header("Refresh:0");
         } else {
             echo '<center>Password does not meet requirements.</center>';

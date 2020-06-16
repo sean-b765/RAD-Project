@@ -47,6 +47,10 @@
     function insert_member_rating($stars, $movie_id, $member_id) {
         $sql = 'SELECT * FROM member_ratings WHERE MemberID="' . $member_id . '" AND MovieID="' . $movie_id . '"';
         $result = query($sql);
+
+        // update the movie ratings fields
+        update_movie_ratings($movie_id, $stars);
+        
         if (mysqli_num_rows($result) === 0) {
             // insert
             $sql = 'INSERT INTO member_ratings (MemberID, MovieID, Stars) VALUES ('. $member_id .', ' . $movie_id . ', ' . $stars . ')';
@@ -89,6 +93,31 @@
         $none    = "None";
 
         
+    }
+
+    // this function is called along side insert_member_rating
+    function update_movie_ratings($movie_id, $stars_given) {
+        $sql = 'SELECT * FROM movies 
+                WHERE ID="' . $movie_id . '"';
+        $result = query($sql);
+        $row = mysqli_fetch_assoc($result);
+
+        // update the total int rating
+        $totalIntegerRating = $row['TotalIntegerRating'];
+        $totalIntegerRating += $stars_given;
+
+        // increment the number of ratings
+        $numOfRatings = $row['NumberOfRatings'];
+        $numOfRatings += 1;
+
+        // calculate the avg rating
+        $avgRating = $totalIntegerRating / $numOfRatings;
+
+        $sql = 'UPDATE movies 
+                SET TotalIntegerRating="' . $totalIntegerRating . '", NumberOfRatings="' . $numOfRatings . '", AvgRating="' . $avgRating . '"
+                WHERE ID="' . $movie_id . '"';
+
+        return query($sql);
     }
 
     // Get a member's star rating of a movie
@@ -138,6 +167,14 @@
                 SET members.Password="' . $password . '" 
                 WHERE id="' . $user_id . '"';
         return query($sql);
+    }
+
+    // Takes user_id,
+    // returns password of the user_id
+    function get_password($user_id) {
+        $sql = 'SELECT members.Password FROM members WHERE id="' . $user_id . '"';
+        $result = query($sql);
+        return mysqli_fetch_assoc($result)['Password'];
     }
 
     function user_is_admin($email) {
