@@ -13,7 +13,7 @@
 <?php
 
     if (isset($_POST['set_password']) && isset($_POST['password'])) {
-        // set the users' password...
+        // set the users password...
         //  if it reaches a minimum criteria: Minimum eight characters, at least one letter and one number
         if ($session->authorise($_SESSION['id'], $_POST['password'])) {
             // correct password, refresh

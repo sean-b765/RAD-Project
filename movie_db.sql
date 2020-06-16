@@ -46,7 +46,7 @@ CREATE TABLE IF NOT EXISTS `members` (
 
 INSERT INTO `members` (`id`, `name`, `email`, `MailingOption`) VALUES
 (1, 'admin', 'admin@cite', 'None'),
-(2, 'Ryan', 'ryan.McDonald@gmail.com', 'Both'),
+(2, 'acme', 'staff@acme.com', 'None'),
 (3, 'Steve', 'steve.John@gmail.com', 'Monthly'),
 (4, 'Jack', 'j.ss@gmail.net', 'None'),
 (5, 'ssdfs', 'ss.dd@gmail.net', 'Flash News'),
@@ -84,37 +84,8 @@ CREATE TABLE IF NOT EXISTS group_members (
   FOREIGN KEY(MemberID) REFERENCES members(ID)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-INSERT INTO group_members(ID, GroupID, MemberID) VALUES
-(0, 0, 1);
-
--- --------------------------------------------------------
---
--- Table structure for table `Streaming`
---  will contain the top 10 most rated movies, ordered by Star Rating DESCENDING
---
-
-CREATE TABLE IF NOT EXISTS streaming (
-  ID INT(10) NOT NULL AUTO_INCREMENT,
-  MovieID INT(10) NOT NULL,
-  PRIMARY KEY(ID),
-  FOREIGN KEY (MovieID) REFERENCES movies(ID)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- --------------------------------------------------------
---
--- Table structure for table `Member_Ratings`
---  contains the members who rated what movie. keeps track of member ratings
---
-
-CREATE TABLE IF NOT EXISTS member_ratings (
-  ID INT(10) NOT NULL AUTO_INCREMENT,
-  MemberID INT(10) NOT NULL,
-  MovieID INT(10) NOT NULL,
-  Stars INT(10) NOT NULL,
-  PRIMARY KEY(ID),
-  FOREIGN KEY(MemberID) REFERENCES members(ID),
-  FOREIGN KEY(MovieID) REFERENCES movies(ID)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+INSERT INTO group_members(GroupID, MemberID) VALUES
+(0, 1), (1, 2);
 
 -- --------------------------------------------------------
 --
@@ -138,6 +109,35 @@ CREATE TABLE IF NOT EXISTS `movies` (
   `NumberOfRatings` INT(10) NULL,
   PRIMARY KEY(`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+--
+-- Table structure for table `Member_Ratings`
+--  contains the members who rated what movie. keeps track of member ratings
+--
+
+CREATE TABLE IF NOT EXISTS member_ratings (
+  ID INT(10) NOT NULL AUTO_INCREMENT,
+  MemberID INT(10) NOT NULL,
+  MovieID INT(10) NOT NULL,
+  Stars INT(10) NOT NULL,
+  PRIMARY KEY(ID),
+  FOREIGN KEY(MemberID) REFERENCES members(ID),
+  FOREIGN KEY(MovieID) REFERENCES movies(ID)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+--
+-- Table structure for table `Streaming`
+--  will contain the top 10 most rated movies, ordered by Star Rating DESCENDING
+--
+
+CREATE TABLE IF NOT EXISTS streaming (
+  ID INT(10) NOT NULL AUTO_INCREMENT,
+  MovieID INT(10) NOT NULL,
+  PRIMARY KEY(ID),
+  FOREIGN KEY (MovieID) REFERENCES movies (ID)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `movies`
@@ -2458,7 +2458,9 @@ CREATE TABLE IF NOT EXISTS `top_searches` (
   `SearchID` int(10) NOT NULL,
   `ID` int(10) NOT NULL,
   `Title` varchar(32) NOT NULL,
-  `SearchAmount` int(10) NOT NULL
+  `SearchAmount` int(10) NOT NULL,
+  PRIMARY KEY(`SearchID`),
+  FOREIGN KEY (ID) REFERENCES movies (ID)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -2533,50 +2535,6 @@ INSERT INTO `top_searches` (`SearchID`, `ID`, `Title`, `SearchAmount`) VALUES
 (65, 565, 'Last Tango In Paris', 1),
 (66, 1025, 'Showgirls', 1),
 (67, 1460, 'Cats', 1);
-
---
--- Indexes for dumped tables
---
-
---
--- Indexes for table `movies`
---
-ALTER TABLE `movies`
-  ADD PRIMARY KEY (`ID`);
-
---
--- Indexes for table `top_searches`
---
-ALTER TABLE `top_searches`
-  ADD PRIMARY KEY (`SearchID`),
-  ADD KEY `ID` (`ID`);
-
---
--- AUTO_INCREMENT for dumped tables
---
-
---
--- AUTO_INCREMENT for table `movies`
---
-ALTER TABLE `movies`
-  MODIFY `ID` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2299;
-
---
--- AUTO_INCREMENT for table `top_searches`
---
-ALTER TABLE `top_searches`
-  MODIFY `SearchID` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=68;
-
---
--- Constraints for dumped tables
---
-
---
--- Constraints for table `top_searches`
---
-ALTER TABLE `top_searches`
-  ADD CONSTRAINT `top_searches_ibfk_1` FOREIGN KEY (`ID`) REFERENCES `movies` (`ID`);
-COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
