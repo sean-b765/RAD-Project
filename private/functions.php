@@ -18,7 +18,7 @@
     function add_user($user, $email, $mailing_option) {
         // check that email is not already in use,
         //  then add
-        $sql = "SELECT * FROM members WHERE email='" . $email . "'";
+        $sql = "SELECT * FROM members WHERE Email='" . $email . "'";
         $result = query($sql);
 
         global $database;
@@ -26,7 +26,7 @@
         // if the email does not exist in the db, add user
         if (mysqli_num_rows($result) === 0) {
             // there CANNOT be an email already in the database
-            $sql = "INSERT INTO members (name, email, MailingOption) VALUES ('" . $user .  "', '" . $email . "', '" . $mailing_option . "');";
+            $sql = "INSERT INTO members (Name, Email, MailingOption) VALUES ('" . $user .  "', '" . $email . "', '" . $mailing_option . "');";
 
             // query data base to insert new member
             $return_result = query($sql);
@@ -66,7 +66,7 @@
         global $database;
         
         // check if $email already exists in members table
-        $sql = "SELECT * FROM members WHERE name='" . $user . "' AND email='" . $email . "'";
+        $sql = "SELECT * FROM members WHERE Name='" . $user . "' AND Email='" . $email . "'";
 
         $result = $database->query($sql);
         if (mysqli_num_rows($result) > 0) {
@@ -134,14 +134,14 @@
     // Get users, and their group name
     function get_all_users_groups() {
         $sql = "SELECT members.*, groups.Name AS Group_Name FROM members
-                INNER JOIN group_members ON members.id = group_members.MemberID
+                INNER JOIN group_members ON members.ID = group_members.MemberID
                 INNER JOIN groups ON groups.ID = group_members.GroupID";
         return query($sql);
     }
 
     function get_users_group($email) {
         $sql = "SELECT members.*, groups.Name AS Group_Name FROM members
-                INNER JOIN group_members ON members.id = group_members.MemberID
+                INNER JOIN group_members ON members.ID = group_members.MemberID
                 INNER JOIN groups ON groups.ID = group_members.GroupID
                 WHERE members.email = '" . $email . "'";
         return query($sql);
@@ -149,7 +149,7 @@
 
     function user_needs_to_set_password($email) {
         $sql = "SELECT * FROM members
-        WHERE email='" . $email . "'";
+        WHERE Email='" . $email . "'";
 
         $result = query($sql);
 
@@ -165,21 +165,22 @@
     function set_password($user_id, $password) {
         $sql = 'UPDATE members 
                 SET members.Password="' . $password . '" 
-                WHERE id="' . $user_id . '"';
+                WHERE ID="' . $user_id . '"';
         return query($sql);
     }
 
     // Takes user_id,
     // returns password of the user_id
     function get_password($user_id) {
-        $sql = 'SELECT members.Password FROM members WHERE id="' . $user_id . '"';
+        $sql = 'SELECT members.Password FROM members WHERE ID="' . $user_id . '"';
         $result = query($sql);
         return mysqli_fetch_assoc($result)['Password'];
     }
 
+    // Will return true if user is ACME or Admin group
     function user_is_admin($email) {
         $sql = "SELECT members.*, groups.Name AS Group_Name FROM members
-                INNER JOIN group_members ON members.id = group_members.MemberID
+                INNER JOIN group_members ON members.ID = group_members.MemberID
                 INNER JOIN groups ON groups.ID = group_members.GroupID
                 WHERE members.email = '" . $email . "'";
         $result = query($sql);

@@ -36,7 +36,7 @@
             if (user_exists($user, $email)) {
                 $this->user_email = $_SESSION['email'] = $email;
                 $this->user_name  = $_SESSION['username'] = $user;
-                $this->user_id    = $_SESSION['id'] = $row['id'];
+                $this->user_id    = $_SESSION['id'] = $row['ID'];
                 $this->user_group = $_SESSION['group'] = $row['Group_Name'];
                 $this->logged_in  = true;
             } else {
