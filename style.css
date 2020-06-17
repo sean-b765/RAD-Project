@@ -10,6 +10,11 @@
     font-family: 'Open Sans', sans-serif;
 }
 
+a {
+    text-decoration: none;
+    color: rgb(93, 96, 255);
+}
+
 /*
     Nav Menu
 */

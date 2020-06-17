@@ -44,6 +44,7 @@
         }
     }
 
+    // insert OR update a member's rating of a movie
     function insert_member_rating($stars, $movie_id, $member_id) {
         $sql = 'SELECT * FROM member_ratings WHERE MemberID="' . $member_id . '" AND MovieID="' . $movie_id . '"';
         $result = query($sql);
@@ -62,11 +63,12 @@
         }
     }
 
-    function user_exists($user, $email) {
+    // check if email already exists
+    function user_exists($email) {
         global $database;
         
         // check if $email already exists in members table
-        $sql = "SELECT * FROM members WHERE Name='" . $user . "' AND Email='" . $email . "'";
+        $sql = "SELECT * FROM members WHERE Email='" . $email . "'";
 
         $result = $database->query($sql);
         if (mysqli_num_rows($result) > 0) {
@@ -126,12 +128,13 @@
         return query($sql);
     }
 
+    // Quick get all users function
     function get_all_users() {
         $sql = "SELECT * FROM members";
         return query($sql);
     }
 
-    // Get users, and their group name
+    // Get all users, and their group name
     function get_all_users_groups() {
         $sql = "SELECT members.*, groups.Name AS Group_Name FROM members
                 INNER JOIN group_members ON members.ID = group_members.MemberID
@@ -139,6 +142,7 @@
         return query($sql);
     }
 
+    // Get the group of the user
     function get_users_group($email) {
         $sql = "SELECT members.*, groups.Name AS Group_Name FROM members
                 INNER JOIN group_members ON members.ID = group_members.MemberID
@@ -147,6 +151,7 @@
         return query($sql);
     }
 
+    // Returns true if the user needs to set their password
     function user_needs_to_set_password($email) {
         $sql = "SELECT * FROM members
         WHERE Email='" . $email . "'";
@@ -162,6 +167,7 @@
         }
     }
 
+    // Set the user password
     function set_password($user_id, $password) {
         $sql = 'UPDATE members 
                 SET members.Password="' . $password . '" 
@@ -194,5 +200,57 @@
         } else {
             return false;
         }
+    }
+
+    // will return time difference between $lastUpdate and server time
+    function get_time_difference($lastUpdate) {
+        // get CURRENT TIME in the DATABASE
+        $sql = "SELECT CURRENT_TIME As Time";
+        $result = query($sql);
+        $server_time = mysqli_fetch_assoc($result)['Time'];
+        // HH:MM:SS
+
+        $sql = 'SELECT TIMEDIFF("' . $server_time . '", "' . $lastUpdate . '") AS Difference';
+        $result = mysqli_fetch_assoc(query($sql));
+        return $result['Difference'];
+    }
+
+    // takes: SQL datetime
+    //  returns SQL time
+    function get_time($date_time) {
+        // formatted as [DD-MM-YYYY hh:mm:ss]
+        //  string can be split by the space
+        return explode(" ", $date_time)[1];
+    }
+
+    // takes time formatted as "HH:MM:SS"
+    //  and returns as "1h 20m 3s"
+    function get_time_string($time) {
+        // split by :
+        $H_M_S = explode(":", $time);
+
+        $time_string = "";
+        if ($H_M_S[0] != "00") {
+            $time_string .= intval($H_M_S[0]) . "h ";
+        }
+
+        if ($H_M_S[1] != "00") {
+            $time_string .= intval($H_M_S[1]) . "m ";
+        }
+        
+        if ($H_M_S[2] != "00") {
+            $time_string .= intval($H_M_S[2]) . "s";
+        }
+
+        if ($time_string === "") {
+            $time_string = "0s";
+        }
+
+        return $time_string;
+    }
+
+    // Function called after a new search result has been displayed
+    function notify_all_users() {
+        
     }
 ?>

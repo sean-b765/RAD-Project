@@ -77,8 +77,6 @@ $(document).ready(function() {
         } catch (err) {
             amt = 0;
         }
-        
-
 
         movie_id = $(this).attr("value");
 
@@ -90,13 +88,13 @@ $(document).ready(function() {
 
     });
 
+    // unfocus the star-rating div
     $("body").on('click', function(e) {
         console.log($(e.target));
         if (!$(e.target).is('span')) {
             $("#star-rating").fadeOut();
         }
     });
-
     $('#star-rating').click(function() {
         $("#star-rating").delay(250).fadeOut();
     });

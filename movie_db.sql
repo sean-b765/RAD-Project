@@ -48,10 +48,7 @@ INSERT INTO `members` (`id`, `name`, `email`, `MailingOption`) VALUES
 (1, 'admin', 'admin@cite', 'None'),
 (2, 'acme', 'staff@acme.com', 'None'),
 (3, 'Steve', 'steve.John@gmail.com', 'Monthly'),
-(4, 'Jack', 'j.ss@gmail.net', 'None'),
-(5, 'ssdfs', 'ss.dd@gmail.net', 'Flash News'),
-(6, 'Ken', 'Ken.Bek@yahoo.tafe.com.au', 'Flash News'),
-(7, 'Alfred', 'A.Hans@Gmail.myself.net', 'Flash News');
+(4, 'Jack', 'j.ss@gmail.net', 'None')
 
 -- --------------------------------------------------------
 --
@@ -74,6 +71,8 @@ INSERT INTO groups(ID, Name) VALUES
 -- Table structure for table `Group_Members`
 --  defines the group/member relationship
 --
+--   And add the existing members to user groups
+--
 
 CREATE TABLE IF NOT EXISTS group_members (
   ID INT(10) NOT NULL AUTO_INCREMENT,
@@ -85,7 +84,7 @@ CREATE TABLE IF NOT EXISTS group_members (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 INSERT INTO group_members(GroupID, MemberID) VALUES
-(0, 1), (1, 2);
+(0, 1), (1, 2), (2, 3), (2, 4);
 
 -- --------------------------------------------------------
 --
@@ -2455,7 +2454,7 @@ INSERT INTO `movies` (`ID`, `Title`, `Studio`, `Status`, `Sound`, `Versions`, `R
 --
 
 CREATE TABLE IF NOT EXISTS `top_searches` (
-  `SearchID` int(10) NOT NULL,
+  `SearchID` int(10) NOT NULL AUTO_INCREMENT,
   `ID` int(10) NOT NULL,
   `Title` varchar(32) NOT NULL,
   `SearchAmount` int(10) NOT NULL,

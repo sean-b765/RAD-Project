@@ -3,7 +3,7 @@
     require_once '../private/initialise.php';
 
     //data: {stars:x, movie_id:movie_id, s_id:id}
-    // data is sent here after user rates a movie
+    // data is sent here after user rates a movie, from ajax POST request in star_rating.js
     // call insert_member_rating to insert/update the database
 
     // this page is POSTED to every time a user rates a movie

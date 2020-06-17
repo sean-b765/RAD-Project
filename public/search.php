@@ -166,29 +166,31 @@
                                         <th>Studio</th>
                                         <th>Status</th>
                                     </tr>';
-                        //echo '<p style="margin: 300px 0px 20px 0px;">' . mysqli_num_rows($result) . ' results were found.</p>';
-                            // echo out how many movies were found
+                                    
                         $count = 0;
     
                         // create the records in the HTML table, by looping through the rows
                         while ($row = mysqli_fetch_assoc($result)) {
-                            // for the first 5 search results, add these to the top_searches!!
-                            if ($count < 5) {
+                            // for the first 3 search results, add these to the top_searches table
+                            if ($count < 3) {
                                 $count++;
                                 
-                                $sql = "SELECT * FROM top_searches WHERE ID='" . $row['ID'] . "'";
-                                $result_srch = query($sql);
+                                $sql = 'SELECT * FROM top_searches WHERE ID=' . $row['ID'];
+                                $existing_top_search = query($sql);
     
-                                $record = mysqli_fetch_assoc($result_srch);
+                                $record = mysqli_fetch_assoc($existing_top_search);
                                 // check if we need to UPDATE or INSERT to top_searches table
-                                if (mysqli_num_rows($result_srch) > 0) {
-                                    $top_searches = "UPDATE top_searches SET SearchAmount=" . ($record['SearchAmount'] + 1) . " WHERE ID='" . $record['ID'] . "';";
+                                if (mysqli_num_rows($existing_top_search) > 0) {
+                                    $top_searches = 'UPDATE top_searches SET SearchAmount=' . ($record['SearchAmount'] + 1) . ',
+                                                    LastUpdate = CURRENT_TIME()
+                                                    WHERE ID=' . $record['ID'];
                                 } else {
-                                    $top_searches = "INSERT INTO top_searches (ID, Title, SearchAmount) VALUES
-                                            ('" . $row['ID'] . "', '" . $row['Title'] . "', 1);";
+                                    $top_searches = 'INSERT INTO top_searches (ID, Title, SearchAmount) VALUES
+                                                    (' .$row['ID']. ', "' .$row['Title']. '", 1)';
                                 }
-                                    
+
                                 query($top_searches);
+                                mysqli_free_result($existing_top_search);
     
                             } //end if (count<5)
                             

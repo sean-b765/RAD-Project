@@ -24,37 +24,13 @@
 
             <h1>Movie Database</h1>
 
-            <p>Welcome to my Movie Database! We feature over 2,000 titles.
-            <br/>
-            Here is a list of the top searches: </p>
+            <p>Welcome to The Movie Database! We feature over 2,000 titles.
+            <br/><br/><a href="public/analytics.php">View the recent analytics</a><br/><br/>
+            <strong>Here is a list of the top rated movies:</strong></p>
 
-            <!-- Top Searches Table -->
-            <table>
-                <tr>    
-                    <th># Of Searches</th>
-                    <th>Title <br/><a href="public/top_movies.php" target="_blank">View Chart</a></th>
-                </tr>
-                <?php
-
-                    
-                    // Choose the top 10 searched movies from the top_searches table
-                    $sql = "SELECT SearchAmount, Title, ID FROM top_searches ORDER BY SearchAmount DESC LIMIT 10";
-                    $result = query($sql);
-
-                if (mysqli_num_rows($result) > 0) {
-                    // echo the top 10 search results
-                    // into a new row in the table
-                    while ($row = mysqli_fetch_assoc($result)) {
-                        echo '<tr>';
-                            echo '<td>' . $row['SearchAmount'] . '</td>';
-                            echo '<td>' . $row['Title'] . '</td>';
-                        echo '</tr>';
-                    }
-                }
-
-                ?>
-
-            </table>
+            <?php
+                include 'public/most_rated.php';
+            ?>
 
         </div>
 
