@@ -44,11 +44,11 @@ CREATE TABLE IF NOT EXISTS `members` (
 -- Dumping data for table `members`
 --
 
-INSERT INTO `members` (`id`, `name`, `email`, `MailingOption`) VALUES
+INSERT INTO `members` (`ID`, `Name`, `Email`, `MailingOption`) VALUES
 (1, 'admin', 'admin@cite', 'None'),
 (2, 'acme', 'staff@acme.com', 'None'),
 (3, 'Steve', 'steve.John@gmail.com', 'Monthly'),
-(4, 'Jack', 'j.ss@gmail.net', 'None')
+(4, 'Jack', 'j.ss@gmail.net', 'None');
 
 -- --------------------------------------------------------
 --
