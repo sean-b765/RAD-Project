@@ -126,17 +126,18 @@ CREATE TABLE IF NOT EXISTS member_ratings (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
---
--- Table structure for table `Streaming`
---  will contain the top 10 most rated movies, ordered by Star Rating DESCENDING
+--  Table for checking updates
+--    When the database updates, Change gets incremented
+--        quick and resource-efficient way to detect changes in DB
 --
 
-CREATE TABLE IF NOT EXISTS streaming (
-  ID INT(10) NOT NULL AUTO_INCREMENT,
-  MovieID INT(10) NOT NULL,
-  PRIMARY KEY(ID),
-  FOREIGN KEY (MovieID) REFERENCES movies (ID)
+CREATE TABLE IF NOT EXISTS `status` (
+  `ID` INT(10) NOT NULL AUTO_INCREMENT,
+  `Value` INT(255) NOT NULL,
+  PRIMARY KEY(ID)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+INSERT INTO `status` (ID, Value) VALUES (1, 0);
 
 --
 -- Dumping data for table `movies`

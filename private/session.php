@@ -33,7 +33,7 @@
 
             $row = mysqli_fetch_assoc($result);
 
-            if (user_exists($user, $email)) {
+            if (user_exists($email)) {
                 $this->user_email = $_SESSION['email'] = $email;
                 $this->user_name  = $_SESSION['username'] = $user;
                 $this->user_id    = $_SESSION['id'] = $row['ID'];

@@ -1,6 +1,31 @@
 <head>
 
     <link rel="stylesheet" href="../style.css" />
+    <script type="text/javascript" rel="javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <script>
+        var _change = 0;
+
+        // call this function every 5 seconds to check if the DB is ahead or behind the client
+        function check_changes() {
+            $.ajax({
+                url: 'checker_scr.php',
+                type: 'POST',
+                data: {
+                    'change': _change
+                }
+            }).done(function(response) {
+                var obj = JSON.parse(response);
+                
+                // update local variable
+                _change = parseInt(obj.current);
+                
+                if (obj.update == true) {
+                    location.reload();
+                }
+            });
+        } setInterval(check_changes, 5000);
+    </script>
 
 </head>
 
@@ -45,10 +70,11 @@
                     echo '<td style="text-align: center;">' . $row['SearchAmount'] . '</td>';
                     echo '<td>' . $row['Title'] . '</td>';
                 echo '</tr>';
-
-                
             }
         }
+
+        // close connection to db
+        close_db();
 
     ?>
 

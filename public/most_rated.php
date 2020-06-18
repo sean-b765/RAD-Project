@@ -36,6 +36,9 @@
             }
         }
 
+        // close connection to db
+        close_db();
+
     ?>
 
 </table>

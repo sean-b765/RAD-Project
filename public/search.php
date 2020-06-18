@@ -13,6 +13,18 @@
 
         
         <script type="text/javascript" src="star_rating.js"></script>
+        <script>
+            // notify all users at analytics.php page on search button click
+            function notify() {
+                $.ajax({
+                    url: 'analytics.php',
+                    type: 'POST',
+                    data: {
+                        'refresh': 'true'
+                    }
+                });
+            }
+        </script>
 
     </head>
 
@@ -35,7 +47,7 @@
             <!-- HTML Search Form -->
             <form class="search_form" method="post">
                 <input type="text" class="searchInput" placeholder="Title" name="searchTxt" />
-                <input type="submit" class='search' name='searchBtn' value="Search" />
+                <input type="submit" class='search' name='searchBtn' value="Search" onclick="notify()"/>
 
                 <!-- YEAR 
                         A datalist contains autofill options -->
@@ -223,6 +235,9 @@
                             echo        '</tr>';
                         }
                         echo '</table>';
+
+                        // register a change of the DB
+                        register_change();
                     } else {
                         //echo 'No movies were found. Please ensure you have correct spelling.';                    
                     }

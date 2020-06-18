@@ -136,9 +136,11 @@
                 </div>
 
             <?php
-            }?>
-                    
-        
+            }
+            
+            // close connection to db
+            close_db();
+        ?>
 
     </body>
 

@@ -249,8 +249,23 @@
         return $time_string;
     }
 
-    // Function called after a new search result has been displayed
-    function notify_all_users() {
-        
+    function close_db() {
+        global $database;
+        $database->conn->close();
+    }
+
+    // Check for a registered change in the database
+    function check_for_changes() {
+        $sql = 'SELECT Value FROM status WHERE ID=1';
+        $result = query($sql);
+        if ($result = mysqli_fetch_assoc($result)) {
+            return $result['Value'];
+        }
+    }
+    
+    // register a change in the database
+    function register_change() {
+        $sql = 'UPDATE status SET Value=Value+1 WHERE ID=1';
+        query($sql);
     }
 ?>

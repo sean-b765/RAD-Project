@@ -45,7 +45,8 @@
             }
         } else {
             // has not already submitted
-            if (!$submitted = isset($_GET['user']) && isset($_GET['email']) !== '') {
+            $submitted = false;
+            if (isset($_GET['user']) == '' && isset($_GET['email']) == '') {
                 // show the Username Email fields
                 echo '<input type="text" name="username" placeholder="Username" /><br/>
                 <input type="email" name="email" placeholder="Email" /><br/>';
@@ -67,8 +68,7 @@
                             <label for="monthly">Monthly Newsletter</label><br/>';
                 echo '  <input type="radio" name="newsletter" value="None">
                             <label for="monthly">Don\'t send me news</label><br/>';
-
-            
+                $submitted = true;
             }
 
             // handle login form submission here
@@ -99,7 +99,7 @@
                     // username and email should not be empty
                     if ($username !== '' && $email !== '') {
                         // username and email wasn't empty, proceed
-                        if (user_exists($username, $email)) {
+                        if (user_exists($email)) {
                             // log in the session, and redirect to SEARCH page
                             $session->login($username, $email);
                             header('Location: ' . FULL_URL . 'public/search.php');
