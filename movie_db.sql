@@ -2459,6 +2459,7 @@ CREATE TABLE IF NOT EXISTS `top_searches` (
   `ID` int(10) NOT NULL,
   `Title` varchar(32) NOT NULL,
   `SearchAmount` int(10) NOT NULL,
+  `LastUpdate` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY(`SearchID`),
   FOREIGN KEY (ID) REFERENCES movies (ID)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
