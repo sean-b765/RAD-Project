@@ -16,6 +16,13 @@ a {
 }
 
 /*
+    hover effect
+*/
+a:hover, tr:hover{
+	font-size:200%;
+    color: blue;
+}
+/*
     Nav Menu
 */
 #nav {
