@@ -18,10 +18,10 @@ a {
 /*
     hover effect
 */
-a:hover, tr:hover{
-	font-size:200%;
+tr:not(:first-child):hover {
     color: blue;
 }
+
 /*
     Nav Menu
 */
@@ -435,5 +435,20 @@ table a:hover {
     }
     .login input {
         font-size: 0.8vw;
+    }
+}
+
+/*
+    Positioning table lower based on screen height, so as not to overlap table and search form
+    Author: Sean
+*/
+@media only screen and (max-height: 800px) {
+    .movie_table {
+        top: 18vh;
+    }
+}
+@media only screen and (max-height: 500px) {
+    .movie_table {
+        top: 25vh;
     }
 }
