@@ -221,12 +221,12 @@
                                 if (mysqli_num_rows($movie_rating)) {
                                     // they have rated this movie,
                                     echo    '<td style="text-align: center;">' . mysqli_fetch_assoc($movie_rating)['Stars'] . '
-                                                <span class="rater fa fa-star checked" value="'. $row['ID'] .'" ></span> 
+                                                <span class="rater fa fa-star checked" alt="Rate this movie" value="'. $row['ID'] .'" ></span> 
                                             </td>';
                                 } else {
                                     // they have not
                                     echo    '<td style="text-align: center;">
-                                                <span class="rater fa fa-star checked" value="'. $row['ID'] .'" ></span> 
+                                                <span class="rater fa fa-star checked" alt="Rate this movie" value="'. $row['ID'] .'" ></span> 
                                             </td>';
                                 }
                             } else {
