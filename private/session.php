@@ -49,7 +49,7 @@
 
         public function logout()
         {
-            // stop the PHP SESSION
+            // stop the PHP SESSION, unset & clear variables
             session_unset();
             session_destroy();
             $this->user_email    = '';

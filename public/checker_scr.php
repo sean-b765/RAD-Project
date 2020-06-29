@@ -17,6 +17,8 @@ if (isset($_POST['change']) &&
         $data['update'] = true;
     }
 }
+// echo JSON for data assoc-array,
+//  will be accessible in the analytics page 
 echo json_encode($data);
 
 ?>

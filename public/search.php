@@ -14,7 +14,8 @@
         
         <script type="text/javascript" src="star_rating.js"></script>
         <script>
-            // notify all users at analytics.php page on search button click
+            // notify all users at analytics.php page on search button click,
+            //  using an HTTP POST request
             function notify() {
                 $.ajax({
                     url: 'analytics.php',
