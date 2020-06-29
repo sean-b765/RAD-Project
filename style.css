@@ -258,9 +258,9 @@ table a:hover {
     background-color: #808080;
     display: none;
     position: absolute;
-    width: 8vw;
+    width: 12vw;
     padding: 5px;
-    font-size: 1.2vw;
+    font-size: 1.8vw;
     text-align: center;
     border-radius: 2px;
     z-index: 999;
@@ -435,6 +435,9 @@ table a:hover {
     }
     .login input {
         font-size: 0.8vw;
+    }
+    #star-rating {
+        font-size: 2vw;
     }
 }
 
