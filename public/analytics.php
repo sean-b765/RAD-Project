@@ -4,6 +4,7 @@
     <script type="text/javascript" rel="javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
     <script>
+        // Author: Sean
         var _change = 0;
 
         // call this function every 5 seconds to check if the DB is ahead or behind the client
@@ -15,6 +16,7 @@
                     'change': _change
                 }
             }).done(function(response) {
+                // access $data variable from checker_scr.php POST request
                 var obj = JSON.parse(response);
                 
                 // update local variable

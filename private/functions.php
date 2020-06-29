@@ -63,7 +63,8 @@
         }
     }
 
-    // check if email already exists
+    // check if user/email already exists
+    //  as email must be unique in the members table
     function user_exists($email) {
         global $database;
         
@@ -77,23 +78,6 @@
             // if the SQL query returend 0 rows, the user does not exist
             return false;
         }
-        
-    }
-
-    function sanitize_user() {
-
-    }
-
-    function sanitize_email() {
-        
-    }
-
-    function edit_user($id, $new_mailing_option) {
-        $monthly = "Monthly";
-        $news    = "Flash News";
-        $both    = "Both";
-        $none    = "None";
-
         
     }
 
@@ -249,6 +233,8 @@
         return $time_string;
     }
 
+    // quickly close the DB connection
+    //  called at the end of each page
     function close_db() {
         global $database;
         $database->conn->close();
