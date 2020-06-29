@@ -1,2 +1,4 @@
-d# RAD Project
-I am trying to make changes here on Sean gitHub
+# RAD Project
+**Team G**
+Gholamreza Aminy, Sean Boaden
+![Table Of Contents](Handover/Master%20ToC.png)
